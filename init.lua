@@ -11,20 +11,20 @@ return {
       -- Load last closed session if launched from ~ with no arguments
       local stargs = vim.fn.argc()
       local vcwd = vim.fn.getcwd()
-      local homedir = os.getenv( "HOME" )
-      if ( stargs == 0 and vcwd == homedir ) then
+      local homedir = os.getenv("HOME")
+      if (stargs == 0 and vcwd == homedir) then
         -- Skip if another instance is already running
         local nvims = tonumber(io.popen("pgrep -x nvim|wc -l"):read("*a"))
         -- Every instance spawns 2 processes IDK why
-        if nvims>2 then
-            -- require("alpha").start(false)
-            -- vim.cmd.Neotree('toggle')
-            return
+        if nvims > 2 then
+          -- require("alpha").start(false)
+          -- vim.cmd.Neotree('toggle')
+          return
         else
           vim.cmd.SessionManager('load_last_session')
         end
-      -- Load expliticly specified non-~ directory session if it exists
-      elseif ( stargs == 0 and vcwd ~= homedir ) then
+    -- Load expliticly specified non-~ directory session if it exists
+      elseif (stargs == 0 and vcwd ~= homedir) then
         if require('session_manager.config').dir_to_session_filename(vcwd):exists() then
           vim.cmd.SessionManager('load_current_dir_session')
         else
@@ -33,7 +33,7 @@ return {
           -- vim.cmd.wincmd "p"
         end
       end
-   end,
+    end,
   }),
 
   -- Open neo-tree upon session load because I'm a child
@@ -57,20 +57,16 @@ return {
   -- end,
 
   vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-    callback = function ()
+    callback = function()
       -- Don't save at home
-      if vim.fn.getcwd() == os.getenv( "HOME" ) then return end
+      if vim.fn.getcwd() == os.getenv("HOME") then return end
       -- local neotreeOpen = is_neotree_open()
       -- if ( neotreeOpen == true ) then vim.cmd.Neotree('toggle') end
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         -- Don't save while there's any 'nofile' buffer open.
         local bufType = vim.api.nvim_get_option_value("buftype", { buf = buf })
         -- local fileType = vim.api.nvim_get_option_value("filetype", { buf= buf })
-        -- require("astronvim.utils").notify(
-        --   ("buf: "..buf.."buftype: "..bufType.."filetype: "..fileType),
-        --   vim.log.levels.INFO
-        --   )
-        if ( ( bufType  == 'nofile') --[[ and not ( fileType  == 'neo-tree') ]] ) then
+        if ((bufType == 'nofile') --[[ and not ( fileType  == 'neo-tree') ]]) then
           return
         end
       end
@@ -78,13 +74,12 @@ return {
       -- if ( neotreeOpen == true ) then vim.cmd.Neotree('toggle') end
     end
   }),
-
-
   lsp = {
     formatting = {
       format_on_save = {
         enabled = false
-      }
-    }
+      },
+    },
   },
+
 }
