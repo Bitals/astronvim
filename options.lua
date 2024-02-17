@@ -7,7 +7,7 @@ return {
     tabstop = 2,
     swapfile = false,
     backup = false,
-    undodir = os.getenv("HOME").."/.local/share/nvim/undodir",
+    undodir = vim.fn.stdpath("data").."/undodir",
     undofile = true,
     scrolloff = 10,
     updatetime = 50,

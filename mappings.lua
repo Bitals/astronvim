@@ -24,10 +24,12 @@ return {
     ["<leader>P"] = {"\"+P", desc = "Paste from CB before the cursor"},
     ["<leader>s"] = [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     ["<leader>x"] = {"<cmd>silent !chmod +x %<CR>", desc = "Make the file executable"},
+
+    ["<leader>pc"] = {"<cmd>UserConfUpdate<CR>", desc = "Update User config"},
   },
   v = {
     -- Do NOT overwrite current buffer on paste
-    ["p"] = {"\"_dP"},
+    ["p"] = {"\"_dp"},
     ["<leader>d"] = {"\"_d"},
     ["<Del>"] = {"\"_d"},
     ["<leader>y"] = {"\"+y"},

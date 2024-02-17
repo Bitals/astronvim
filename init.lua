@@ -14,7 +14,7 @@ return {
       local homedir = os.getenv("HOME")
       if (stargs == 0 and vcwd == homedir) then
         -- Skip if another instance is already running
-        local nvims = tonumber(io.popen("pgrep -x nvim|wc -l"):read("*a"))
+        local nvims = io.popen("pgrep -x nvim|wc -l"):read("n")
         -- Every instance spawns 2 processes IDK why
         if nvims > 2 then
           -- require("alpha").start(false)
@@ -74,6 +74,9 @@ return {
       -- if ( neotreeOpen == true ) then vim.cmd.Neotree('toggle') end
     end
   }),
+
+  vim.api.nvim_create_user_command("UserConfUpdate", function() require("user.utils.updater").update() end, { desc = "Update User config" }),
+
   lsp = {
     formatting = {
       format_on_save = {
@@ -81,5 +84,4 @@ return {
       },
     },
   },
-
 }
