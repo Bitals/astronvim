@@ -26,6 +26,7 @@ return{
       id = tostring(io.popen("notify-send "..argsN.." -a Neovim -i nvim -e -p \'"..content.."\'"):read("a"))
     else
       id = nil
+      -- TODO: add notify plugin arguments
       require("astronvim.utils").notify(content)
     end
     -- print(id)
