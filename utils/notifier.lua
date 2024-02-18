@@ -20,8 +20,7 @@ return{
     -- print(args)
     local argsN = string.gsub(args, "\n", "")
     -- print(argsN)
-    local command = "notify-send "..argsN.." -a Neovim -i nvim -e -p \'"..content.."\'"
-    print(command)
+    -- print(command)
     local id = nil
     if ( os.getenv( "XDG_CURRENT_DESKTOP" ) == "GNOME" ) then
       id = tostring(io.popen("notify-send "..argsN.." -a Neovim -i nvim -e -p \'"..content.."\'"):read("a"))
