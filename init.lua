@@ -75,7 +75,35 @@ return {
     end
   }),
 
-  vim.api.nvim_create_user_command("UserConfUpdate", function() require("user.utils.updater").update() end, { desc = "Update User config" }),
+  -- vim.api.nvim_create_user_command(
+  --   "NotifyOS",
+  --   function(opts)
+  --       return require("user.utils.notifier").notify(opts)
+  --   end,
+  --   {
+  --     nargs = "*",
+  --     desc = "Send desktop notification",
+  --     bang = true
+  --   }
+  -- ),
+  -- vim.api.nvim_create_user_command(
+  --   "TestF",
+  --   function()
+  --     local i = "fgdgvgf"
+  --     return tostring("kljugb")
+  --     -- return i
+  --     -- print("icfobyhb")
+  --   end,
+  -- {}),
+  -- require("astronvim.utils").notify(require("user.utils.notifier").notify{"test", "352"}),
+  -- require("astronvim.utils").notify("Outsider:  "..vim.cmd.NotifyOS("test")),
+
+  vim.api.nvim_create_user_command(
+    "UserConfUpdate",
+    function()
+      require("user.utils.updater").update() end,
+    { desc = "Update User config" }
+  ),
 
   lsp = {
     formatting = {
@@ -84,4 +112,8 @@ return {
       },
     },
   },
+
+
+  -- Overwiting AstroNvim default commands to use desktop notifications
+
 }
