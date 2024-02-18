@@ -8,7 +8,7 @@ return{
       position = "right", -- "right", "bottom"
       ignore_filetype = { 'undotree', 'undotreeDiff', 'qf', 'TelescopePrompt', 'spectre_panel', 'tsplayground', 'neo-tree' },
       window = {
-        winblend = 30,
+        winblend = 60,
       },
       keymaps = {
         ['j'] = "move_next",
