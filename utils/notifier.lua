@@ -22,7 +22,13 @@ return{
     -- print(argsN)
     local command = "notify-send "..argsN.." -a Neovim -i nvim -e -p \'"..content.."\'"
     print(command)
-    local id = tostring(io.popen("notify-send "..argsN.." -a Neovim -i nvim -e -p \'"..content.."\'"):read("a"))
+    local id = nil
+    if ( os.getenv( "XDG_CURRENT_DESKTOP" ) == "GNOME" ) then
+      id = tostring(io.popen("notify-send "..argsN.." -a Neovim -i nvim -e -p \'"..content.."\'"):read("a"))
+    else
+      id = nil
+      require("astronvim.utils").notify(content)
+    end
     -- print(id)
     return id
     -- return "1337"
