@@ -1,7 +1,5 @@
 return {
 	n = {
-		-- ["<leader>ma"] = { "@a", desc = "Run macro X" },
-		-- ["<leader>m"] = { name = "Macros" },
 		["<leader>a"] = {"<cmd>ASToggle<CR>", desc = "Toggle Autosave"},
 		["<leader><F5>"] = {"<cmd>lua require('undotree').toggle()<CR>", desc = "Toggle Undotree"},
 		["<C-d>"] = {"<C-d>zz"},
@@ -17,7 +15,6 @@ return {
 		["n"] = {"nzzzv"},
 		["N"] = {"Nzzzv"},
 		["<leader>y"] = {"\"+y", desc = "Copy to CB"},
-		["<leader>Y"] = {"\"+Y", desc = "Copy line to CB"},
 		["p"] = {"\"\"p"},
 		["P"] = {"\"\"P"},
 		["<leader>p"] = {"\"+p", desc = "Paste from CB"},
@@ -33,5 +30,6 @@ return {
 		["<leader>d"] = {"\"_d"},
 		["<Del>"] = {"\"_d"},
 		["<leader>y"] = {"\"+y"},
+		["<leader>s"] = [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 	}
 }

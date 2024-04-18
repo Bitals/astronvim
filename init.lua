@@ -8,10 +8,10 @@ return {
 		group = 'AutoRestore',
 		once = true,
 		callback = function(_)
-			-- Load last closed session if launched from ~ with no arguments
 			local stargs = vim.fn.argc()
 			local vcwd = vim.fn.getcwd()
 			local homedir = os.getenv("HOME")
+			-- Load last closed session if launched from ~ with no arguments
 			if (stargs == 0 and vcwd == homedir) then
 				-- Skip if another instance is already running
 				local nvims = io.popen("pgrep -x nvim|wc -l"):read("n")
@@ -27,22 +27,28 @@ return {
 			elseif (stargs == 0 and vcwd ~= homedir) then
 				if require('session_manager.config').dir_to_session_filename(vcwd):exists() then
 					vim.cmd.SessionManager('load_current_dir_session')
-				else
+				-- else
 					-- Just open neo-tree if it doesn't
-					vim.cmd.Neotree('toggle')
+					-- vim.cmd.Neotree('toggle')
+					-- require("telescope.builtin").find_files()
 					-- vim.cmd.wincmd "p"
 				end
 			end
 		end,
 	}),
 
-	-- Open neo-tree upon session load because I'm a child
 	vim.api.nvim_create_autocmd({ 'User' }, {
 		pattern = "SessionLoadPost",
 		group = 'AutoRestore',
 		callback = function()
-			vim.cmd.Neotree('toggle')
-			vim.cmd.wincmd "p"
+			-- Load appropriate git config for current directory
+			-- TODO: move to a dedicated envgetting function as this var is already used in 2 places
+			local vcwd = vim.fn.getcwd()
+			require("user.utils.git").profiler(vcwd)
+			-- Open neo-tree upon session load because I'm a child
+			-- vim.cmd.Neotree('toggle')
+			-- vim.cmd.wincmd "p"
+			-- require("telescope.builtin").find_files()
 		end,
 	}),
 
@@ -98,12 +104,15 @@ return {
 	-- require("astronvim.utils").notify(require("user.utils.notifier").notify{"test", "352"}),
 	-- require("astronvim.utils").notify("Outsider:	"..vim.cmd.NotifyOS("test")),
 
+	-- User conf updater
 	vim.api.nvim_create_user_command(
 		"UserConfUpdate",
 		function()
 			require("user.utils.updater").update() end,
 		{ desc = "Update User config" }
 	),
+
+
 
 	lsp = {
 		formatting = {
